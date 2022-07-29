@@ -2,14 +2,25 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+function required(key, defaultValue = undefined) {
+    const value = process.env[key] || defaultValue;
+    if (value == null) {
+        throw new Error(`key ${key} is undefined`)
+    }
+    return value;
+}
+
 export const config = {
+    port: parseInt(required('PORT',8080)),
     db: {
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        database: process.env.DB_DATABASE,
-        password: process.env.DB_PASSWORD,
+        host: required('DB_HOST'),
+        user: required('DB_USER'),
+        database: required('DB_DATABASE'),
+        password: required('DB_PASSWORD'),
+        port: required('DB_PORT'),
     },
+    port: parseInt(required('PORT', 8080)),
     cors: {
-        allowedOrigin: process.env.CORS_ALLOWED_ORIGIN,
+        allowedOrigin: required('CORS_ALLOWED_ORIGIN'),
     }
 }

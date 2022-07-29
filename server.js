@@ -30,5 +30,5 @@ app.use((error, req, res, next) => {
 
 sequelize.sync().then(() => {
     console.log(`server started at ${new Date()}`);
-    const server = app.listen(8080);
+    app.listen(config.port);
 })
