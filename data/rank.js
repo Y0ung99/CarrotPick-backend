@@ -32,7 +32,7 @@ export async function getAll() {
 }
 
 export async function getById(id) {
-    return Rank.findAll({
+    return Rank.findOne({
         where: {id},
     })
 }
@@ -40,4 +40,9 @@ export async function getById(id) {
 export async function create(name, score) {
     const newRank = {name, score, createdAt: new Date()}
     return Rank.create(newRank).then(data => data.dataValues);
+}
+
+export async function remove(id) {
+    Rank.findByPk(id)
+    .then(tweet => tweet.destroy());
 }

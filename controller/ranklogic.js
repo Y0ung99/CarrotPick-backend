@@ -14,3 +14,14 @@ export async function createRank(req, res, next) {
     ? res.status(201).json(newRank)
     : res.sendStatus(404);
 }
+
+export async function deleteRank(req, res, next) {
+    const {id} = req.body;
+    const deleteRank = await rankRepository.getById(id);
+    console.log(deleteRank); 
+    if (!deleteRank) {
+        return res.sendStatus(404);
+    }
+    rankRepository.remove(id)
+    res.sendStatus(204);
+}
